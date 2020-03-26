@@ -157,6 +157,17 @@ class Database:
                 break
         self._write_password_json_to_disk()
 
+    def update_account(self, system_name: str, updated_account: Account):
+        """Updates an account in the JSON file"""
+        for system_json in self._password_json["systems"]:
+            if system_json["name"] == system_name:
+                for account_json in system_json["accounts"]:
+                    if account_json["name"] == updated_account.name:
+                        account_json["credential"] = updated_account.credential
+                        break
+        self._write_password_json_to_disk()
+
+
     def update_system(self, updated_system: System):
         """ Updates a system in the JSON file """
         for system_json in self._password_json["systems"]:

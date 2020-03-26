@@ -97,7 +97,7 @@ class CredentialWidget:
             return
         self.value = self._credential.toPlainText()
         self._selected_account.credential = self.value
-        self._state.database.update_system(self._selected_system)
+        self._state.database.update_account(self._selected_system.name, self._selected_account)
 
     def _repaint_credential(self):
         self.value = self._selected_account.credential

@@ -66,7 +66,9 @@ class AccountWidget(CrudTree):
         self.state.database.rename_account(self._selected_system.name,
                                            self._selected_account.name,
                                            new_name)
+        selected_account_backup = self._selected_account
         self._repaint_selected_system()
+        self._selected_account = selected_account_backup
 
     def _account_del(self):
         self.state.database.delete_account(self.selected_system.name, self.selected_account.name)
