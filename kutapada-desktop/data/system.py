@@ -2,7 +2,7 @@
 from typing import List
 
 
-class Account:
+class Account: # pylint: disable=R0903
     """ An account within a system """
     def __init__(self, name: str = None, credential: str = None):
         if name is None:
@@ -16,7 +16,7 @@ class Account:
             self.credential = credential
 
 
-class System:
+class System: # pylint: disable=R0903
     """ A system with passwords """
     def __init__(self, name: str = None, connection: str = None, accounts: List[Account] = None):
         if name is None:

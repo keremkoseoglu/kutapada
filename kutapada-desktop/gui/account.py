@@ -77,7 +77,7 @@ class AccountWidget(CrudTree):
     def _account_select(self):
         try:
             selected_row = GuiToolkit.get_selected_tree_row_index(self.tree)
-        except Exception:
+        except Exception: # pylint: disable=W0703
             return
 
         if selected_row > len(self._selected_system.accounts) - 1:

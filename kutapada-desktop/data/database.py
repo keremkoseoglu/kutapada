@@ -18,6 +18,7 @@ class DatabaseError(Exception):
                  error_code: ErrorCode,
                  system_name: str = ""):
 
+        super().__init__()
         self.error_code = error_code
 
         if system_name is None:
@@ -116,7 +117,7 @@ class Database:
             for acc in selected_system.accounts:
                 if acc.name == account_name:
                     return True
-        except Exception:
+        except Exception: # pylint: disable=W0703
             pass
         return False
 
@@ -125,7 +126,7 @@ class Database:
         try:
             self.get_system_by_name(name)
             return True
-        except Exception:
+        except Exception: # pylint: disable=W0703
             return False
 
     def get_system_by_name(self, name: str) -> System:
@@ -250,7 +251,7 @@ class Database:
             json.dump(writeable_password_json, data_file)
 
 
-class DatabaseFactory:
+class DatabaseFactory: # pylint: disable=R0903
     """ Factory for singleton database object """
     _singleton: Database = None
 

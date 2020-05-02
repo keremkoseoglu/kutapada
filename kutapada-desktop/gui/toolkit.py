@@ -25,8 +25,8 @@ class GuiToolkit:
         return output
 
     @staticmethod
-    def create_tree_view(model: QStandardItemModel, 
-                         select_event_handler, 
+    def create_tree_view(model: QStandardItemModel,
+                         select_event_handler,
                          change_event_handler) -> QTreeView:
         """ Creates a new tree view """
         output = QTreeView()
@@ -46,11 +46,9 @@ class GuiToolkit:
         return int(indexes[0].row())
 
 
-class WidgetState:
+class WidgetState: # pylint: disable=R0903
     """Common widget variables"""
     def __init__(self, database: Database, main_widget: QWidget, main_layout: QHBoxLayout):
         self.database = database
         self.main_widget = main_widget
         self.main_layout = main_layout
-
-

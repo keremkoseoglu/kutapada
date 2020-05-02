@@ -7,7 +7,7 @@ from gui.toolkit import GuiToolkit, WidgetState
 
 class CrudTree(ABC):
     """Abstract tree class"""
-    def __init__(self,
+    def __init__(self, # pylint: disable=R0913
                  state: WidgetState,
                  external_selected_handler,
                  internal_selected_handler,
@@ -18,7 +18,12 @@ class CrudTree(ABC):
         self.state = state
         self.external_selected_handler = external_selected_handler
         self.model = GuiToolkit.create_tree_model(self.state.main_widget, title)
-        self.tree = GuiToolkit.create_tree_view(self.model, internal_selected_handler, change_handler)
+
+        self.tree = GuiToolkit.create_tree_view(
+            self.model,
+            internal_selected_handler,
+            change_handler)
+
         self._del_handler = del_handler
 
         add_button = QPushButton("+")
@@ -45,4 +50,3 @@ class CrudTree(ABC):
     def _del_clicked(self):
         if GuiToolkit.are_you_sure("Delete item?"):
             self._del_handler()
-
