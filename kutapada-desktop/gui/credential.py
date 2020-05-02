@@ -7,7 +7,7 @@ from data.database import Account, System
 from gui.toolkit import WidgetState
 
 
-class CredentialWidget:
+class CredentialWidget: # pylint: disable=R0902
     """ Main class """
     def __init__(self, state: WidgetState):
         self._state = state
@@ -85,7 +85,7 @@ class CredentialWidget:
     def _build_displayed_value(self):
         if self.masked:
             self._displayed_value = ""
-            for internal_char in self._internal_value:
+            for internal_char in self._internal_value: # pylint: disable=W0612
                 self._displayed_value += "*"
         else:
             self._displayed_value = self._internal_value

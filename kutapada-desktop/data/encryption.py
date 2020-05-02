@@ -4,8 +4,8 @@
 class Encryption:
     """ Simple class to encrypt / decrypt values """
 
-    _DECRPYTED = "1234567890qwertyuopasdfghjklizxcvbnm*-,.<é!'^+%&/()=?_';>:QWERTYUIOPASDFGHJKLZXCVBNM"
-    _ENCRYPTED = "DH8G+.(YgJMx-6P:%)^sr>&<ob5f_wNKyiXRC7eIz!V4Z3EcjWnOa2?LmA/kpB'QlU=u;9*h0T'SFdqé1t,v"
+    _DECRPYTED = "1234567890qwertyuopasdfghjklizxcvbnm*-,.<é!'^+%&/()=?_';>:QWERTYUIOPASDFGHJKLZXCVBNM" # pylint: disable=C0301
+    _ENCRYPTED = "DH8G+.(YgJMx-6P:%)^sr>&<ob5f_wNKyiXRC7eIz!V4Z3EcjWnOa2?LmA/kpB'QlU=u;9*h0T'SFdqé1t,v" # pylint: disable=C0301
 
     @staticmethod
     def decrypt_text(text: str) -> str:

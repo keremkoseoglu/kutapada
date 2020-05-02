@@ -77,7 +77,7 @@ class SystemWidget(CrudTree):
     def _system_select(self):
         try:
             selected_row = GuiToolkit.get_selected_tree_row_index(self.tree)
-        except Exception:
+        except Exception: # pylint: disable=W0703
             return
 
         self._selected_system = self.state.database.get_system_by_index(selected_row)

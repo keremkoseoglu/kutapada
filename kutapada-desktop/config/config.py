@@ -3,7 +3,7 @@ import json
 import os
 
 
-class Config:
+class Config: # pylint: disable=R0903
     """Main configuration file"""
     _config_dir = "config"
     _file_name = "config.json"
@@ -19,7 +19,7 @@ class Config:
         return self.config_json["data_file_path"]
 
 
-class ConfigFactory:
+class ConfigFactory: # pylint: disable=R0903
     """Singleton based factory"""
     _singleton: Config = None
 
