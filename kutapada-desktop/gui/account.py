@@ -35,6 +35,8 @@ class AccountWidget(CrudTree):
         """ Setter for selected system """
         self._selected_system = sys
         self._repaint_accounts()
+        if len(self._selected_system.accounts) == 1:
+            self._select_first_account()
 
     def _repaint_accounts(self):
         self._repainting = True
@@ -85,3 +87,11 @@ class AccountWidget(CrudTree):
 
         self._selected_account = self._selected_system.accounts[selected_row]
         self.external_selected_handler()
+
+    def _select_first_account(self):
+        if self._selected_system is None:
+            return
+        if len(self._selected_system.accounts) <= 0:
+            return
+        index = self.model.index(0, 0)
+        self.tree.setCurrentIndex(index)

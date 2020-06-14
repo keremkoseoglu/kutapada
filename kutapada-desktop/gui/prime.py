@@ -25,5 +25,5 @@ class Prime(QWidget):
         self._credential_widget.selected_account = self._account_widget.selected_account
 
     def _system_selected(self):
-        self._account_widget.selected_system = self._system_widget.selected_system
         self._credential_widget.selected_system = self._system_widget.selected_system
+        self._account_widget.selected_system = self._system_widget.selected_system
