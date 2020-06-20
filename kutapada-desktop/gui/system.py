@@ -8,7 +8,7 @@ from gui.toolkit import GuiToolkit, WidgetState
 
 class SystemWidget(CrudTree):
     """System widget main class"""
-    def __init__(self, state: WidgetState, system_selected_handler):
+    def __init__(self, state: WidgetState, system_selected_handler, login_handler):
 
         super().__init__(state,
                          system_selected_handler,
@@ -21,12 +21,15 @@ class SystemWidget(CrudTree):
         self._repainting = False
         connection_label = QLabel("Connection")
         self._connection = QPlainTextEdit()
+        connection_login = QPushButton("SAP Login")
+        connection_login.clicked.connect(login_handler)
         connection_save = QPushButton("Save")
         connection_save.clicked.connect(self._connection_save_clicked)
         connection_layout = QVBoxLayout()
         connection_layout.addWidget(connection_label)
         connection_layout.addWidget(self._connection)
         connection_layout.addWidget(connection_save)
+        connection_layout.addWidget(connection_login)
         self.crud_layout.addLayout(connection_layout)
 
         self.flush_layout()
@@ -38,8 +41,13 @@ class SystemWidget(CrudTree):
         """Returns the selected system on the GUI"""
         return self._selected_system
 
+    @property
+    def connection_text(self) -> str:
+        """ Returns the current text in the connection box """
+        return self._connection.toPlainText()
+
     def _connection_save_clicked(self):
-        self.selected_system.connection = self._connection.toPlainText()
+        self.selected_system.connection = self.connection_text
         self.state.database.update_system(self.selected_system)
 
     def _repaint_systems(self):

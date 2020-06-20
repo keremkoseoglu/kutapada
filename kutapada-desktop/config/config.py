@@ -5,11 +5,10 @@ import os
 
 class Config: # pylint: disable=R0903
     """Main configuration file"""
-    _config_dir = "config"
     _file_name = "config.json"
 
     def __init__(self):
-        full_config_path = os.path.join(os.getcwd(), Config._config_dir, Config._file_name)
+        full_config_path = os.path.join(os.getcwd(), Config._file_name)
         with open(full_config_path, "r") as config_file:
             self.config_json = json.load(config_file)
 
