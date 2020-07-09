@@ -2,6 +2,7 @@
 import os
 from os import path
 import time
+from threading import Thread
 from connection.abstract_connection_type import AbstractConnectionType
 
 
@@ -36,8 +37,13 @@ class SapConnection(AbstractConnectionType):
         with open(file_path, "w") as tmp_file:
             tmp_file.write(file_content)
 
+        open_thread = Thread(target=self._open_connection_file)
+        open_thread.start()
+
+    def _open_connection_file(self):
+        file_path = path.join(os.getcwd(), SapConnection.FILE_NAME)
         try:
             os.system("open " + file_path)
-            time.sleep(5)
+            time.sleep(10)
         finally:
             os.remove(file_path)
