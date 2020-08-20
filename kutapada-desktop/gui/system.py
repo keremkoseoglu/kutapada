@@ -1,6 +1,6 @@
 """System widget module"""
 from PyQt5.Qt import QVBoxLayout
-from PyQt5.QtWidgets import QLabel, QPlainTextEdit, QPushButton
+from PyQt5.QtWidgets import QLabel, QPlainTextEdit, QPushButton, QLineEdit
 from data.database import System
 from gui.crud_tree import CrudTree
 from gui.toolkit import GuiToolkit, WidgetState
@@ -19,6 +19,10 @@ class SystemWidget(CrudTree):
                          "System")
 
         self._repainting = False
+        self._locate_text = QLineEdit()
+        self._locate_text.setPlaceholderText("locate...")
+        self._locate_text.textChanged.connect(self._locate)
+
         connection_label = QLabel("Connection")
         self._connection = QPlainTextEdit()
         connection_login = QPushButton("SAP Login")
@@ -26,6 +30,7 @@ class SystemWidget(CrudTree):
         connection_save = QPushButton("Save")
         connection_save.clicked.connect(self._connection_save_clicked)
         connection_layout = QVBoxLayout()
+        connection_layout.addWidget(self._locate_text)
         connection_layout.addWidget(connection_label)
         connection_layout.addWidget(self._connection)
         connection_layout.addWidget(connection_save)
@@ -49,6 +54,9 @@ class SystemWidget(CrudTree):
     def _connection_save_clicked(self):
         self.selected_system.connection = self.connection_text
         self.state.database.update_system(self.selected_system)
+
+    def _locate(self):
+        self.locate(self._locate_text.text())
 
     def _repaint_systems(self):
         self._repainting = True
