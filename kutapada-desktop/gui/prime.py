@@ -15,7 +15,12 @@ class Prime(QWidget):
     def __init__(self):
         super().__init__()
         self._widget_state = WidgetState(DatabaseFactory.get_instance(), self, QHBoxLayout())
-        self._system_widget = SystemWidget(self._widget_state, self._system_selected, self._login_clicked)
+
+        self._system_widget = SystemWidget(
+            self._widget_state,
+            self._system_selected,
+            self._login_clicked)
+
         self._account_widget = AccountWidget(self._widget_state, self._account_selected)
         self._credential_widget = CredentialWidget(self._widget_state)
         self.setLayout(self._widget_state.main_layout)

@@ -47,6 +47,17 @@ class CrudTree(ABC):
         """Sends CRUD layout to main layout"""
         self.state.main_layout.addLayout(self.crud_layout)
 
+    def locate(self, pattern: str):
+        """ Locates the element matching the given name """
+        upper_pattern = pattern.upper()
+        for row_index in range(0, self.model.rowCount()-1):
+            row = self.model.item(row_index)
+            row_text = row.data(0).upper()
+            if upper_pattern in row_text:
+                index = self.model.index(row_index, 0)
+                self.tree.setCurrentIndex(index)
+                return
+
     def _del_clicked(self):
         if GuiToolkit.are_you_sure("Delete item?"):
             self._del_handler()
