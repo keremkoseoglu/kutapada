@@ -25,6 +25,7 @@ class Prime(QWidget):
         self._credential_widget = CredentialWidget(self._widget_state)
         self.setLayout(self._widget_state.main_layout)
         self.setWindowTitle("Kutapada")
+        self._system_widget.focus_on_locate()
         self.show()
 
     def _account_selected(self):

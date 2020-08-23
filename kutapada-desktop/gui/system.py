@@ -51,6 +51,10 @@ class SystemWidget(CrudTree):
         """ Returns the current text in the connection box """
         return self._connection.toPlainText()
 
+    def focus_on_locate(self):
+        """ Focus on locate """
+        self._locate_text.setFocus()
+
     def _connection_save_clicked(self):
         self.selected_system.connection = self.connection_text
         self.state.database.update_system(self.selected_system)
