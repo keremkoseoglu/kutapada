@@ -2,6 +2,7 @@
 from abc import ABC
 from PyQt5.Qt import QHBoxLayout, QVBoxLayout
 from PyQt5.QtWidgets import QPushButton
+from incubus import IncubusFactory
 from gui.toolkit import GuiToolkit, WidgetState
 
 
@@ -39,16 +40,21 @@ class CrudTree(ABC):
         self.crud_layout.addWidget(self.tree)
         self.crud_layout.addLayout(button_layout)
 
+        self._incubus = IncubusFactory.get_instance()
+
     def clear_model(self):
         """Removes all items from model"""
+        self._incubus.user_event()
         self.model.removeRows(0, self.model.rowCount())
 
     def flush_layout(self):
         """Sends CRUD layout to main layout"""
+        self._incubus.user_event()
         self.state.main_layout.addLayout(self.crud_layout)
 
     def locate(self, pattern: str):
         """ Locates the element matching the given name """
+        self._incubus.user_event()
         upper_pattern = pattern.upper()
         for row_index in range(0, self.model.rowCount()-1):
             row = self.model.item(row_index)
@@ -59,5 +65,6 @@ class CrudTree(ABC):
                 return
 
     def _del_clicked(self):
+        self._incubus.user_event()
         if GuiToolkit.are_you_sure("Delete item?"):
             self._del_handler()

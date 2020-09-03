@@ -1,6 +1,7 @@
 """System widget module"""
 from PyQt5.Qt import QVBoxLayout
 from PyQt5.QtWidgets import QLabel, QPlainTextEdit, QPushButton, QLineEdit
+from incubus import IncubusFactory
 from data.database import System
 from gui.crud_tree import CrudTree
 from gui.toolkit import GuiToolkit, WidgetState
@@ -41,6 +42,8 @@ class SystemWidget(CrudTree):
         self._selected_system = System()
         self._repaint_systems()
 
+        self._incubus = IncubusFactory.get_instance()
+
     @property
     def selected_system(self) -> System:
         """Returns the selected system on the GUI"""
@@ -53,16 +56,20 @@ class SystemWidget(CrudTree):
 
     def focus_on_locate(self):
         """ Focus on locate """
+        self._incubus.user_event()
         self._locate_text.setFocus()
 
     def _connection_save_clicked(self):
+        self._incubus.user_event()
         self.selected_system.connection = self.connection_text
         self.state.database.update_system(self.selected_system)
 
     def _locate(self):
+        self._incubus.user_event()
         self.locate(self._locate_text.text())
 
     def _repaint_systems(self):
+        self._incubus.user_event()
         self._repainting = True
         self.clear_model()
         for system in self.state.database.systems:
@@ -75,10 +82,12 @@ class SystemWidget(CrudTree):
         self._repainting = False
 
     def _system_add(self):
+        self._incubus.user_event()
         self.state.database.create_system()
         self._repaint_systems()
 
     def _system_change(self, selected_row):
+        self._incubus.user_event()
         if self._repainting:
             return
         new_name = selected_row.data()
@@ -91,10 +100,12 @@ class SystemWidget(CrudTree):
         self._repaint_systems()
 
     def _system_del(self):
+        self._incubus.user_event()
         self.state.database.delete_system(self.selected_system.name)
         self._repaint_systems()
 
     def _system_select(self):
+        self._incubus.user_event()
         try:
             selected_row = GuiToolkit.get_selected_tree_row_index(self.tree)
         except Exception: # pylint: disable=W0703
