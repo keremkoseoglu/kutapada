@@ -1,35 +1,20 @@
 """ Systems with passwords """
+from dataclasses import dataclass
 from typing import List
 
-
+@dataclass
 class Account: # pylint: disable=R0903
     """ An account within a system """
-    def __init__(self, name: str = None, credential: str = None):
-        if name is None:
-            self.name = ""
-        else:
-            self.name = name
+    name: str = ""
+    credential: str = ""
 
-        if credential is None:
-            self.credential = ""
-        else:
-            self.credential = credential
-
-
+@dataclass
 class System: # pylint: disable=R0903
     """ A system with passwords """
-    def __init__(self, name: str = None, connection: str = None, accounts: List[Account] = None):
-        if name is None:
-            self.name = ""
-        else:
-            self.name = name
+    name: str = ""
+    connection: str = ""
+    accounts: List[Account] = None
 
-        if connection is None:
-            self.connection = ""
-        else:
-            self.connection = connection
-
-        if accounts is None:
+    def __post_init__(self):
+        if self.accounts is None:
             self.accounts = []
-        else:
-            self.accounts = accounts
