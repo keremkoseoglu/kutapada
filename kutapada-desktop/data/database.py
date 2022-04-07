@@ -30,7 +30,7 @@ class DatabaseError(Exception):
     def message(self) -> str:
         """Message in text format"""
         if self.error_code == DatabaseError.ErrorCode.system_not_found:
-            return "System not found: " + self.system_name
+            return f"System not found: {self.system_name}"
         return "Database error"
 
 
@@ -209,7 +209,7 @@ class Database:
             if system_json["name"] == system_name:
                 while True:
                     number += 1
-                    candidate = base_candidate + " (" + str(number) + ")"
+                    candidate = f"{base_candidate} ({str(number)})"
                     already_exists = False
                     for account_json in system_json["accounts"]:
                         if account_json["name"] == candidate:
@@ -223,7 +223,7 @@ class Database:
         number = 0
         while True:
             number += 1
-            candidate = base_candidate + " (" + str(number) + ")"
+            candidate = f"{base_candidate} ({str(number)})"
             already_exists = False
             for system_json in self._password_json["systems"]:
                 if system_json["name"] == candidate:

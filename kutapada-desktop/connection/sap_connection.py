@@ -43,7 +43,7 @@ class SapConnection(AbstractConnectionType):
     def _open_connection_file(self):
         file_path = path.join(os.getcwd(), SapConnection.FILE_NAME)
         try:
-            os.system("open " + file_path)
+            os.system(f"open {file_path}")
             time.sleep(10)
         finally:
             os.remove(file_path)
