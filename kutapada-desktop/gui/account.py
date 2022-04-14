@@ -1,5 +1,4 @@
 """ Account widget module """
-from incubus import IncubusFactory
 from data.database import Account, System
 from gui.crud_tree import CrudTree
 from gui.toolkit import GuiToolkit, WidgetState
@@ -20,7 +19,6 @@ class AccountWidget(CrudTree):
         self._selected_system = System()
         self._selected_account = Account()
         self._repaint_accounts()
-        self._incubus = IncubusFactory.get_instance()
 
     @property
     def selected_account(self) -> Account:
@@ -55,12 +53,10 @@ class AccountWidget(CrudTree):
         self.selected_system = self.state.database.get_system_by_name(self.selected_system.name)
 
     def _account_add(self):
-        self._incubus.user_event()
         self.state.database.create_account(self.selected_system.name)
         self._repaint_selected_system()
 
     def _account_change(self, selected_row):
-        self._incubus.user_event()
         if self._repainting:
             return
         new_name = selected_row.data()
@@ -77,12 +73,10 @@ class AccountWidget(CrudTree):
         self._selected_account = selected_account_backup
 
     def _account_del(self):
-        self._incubus.user_event()
         self.state.database.delete_account(self.selected_system.name, self.selected_account.name)
         self._repaint_selected_system()
 
     def _account_select(self):
-        self._incubus.user_event()
         try:
             selected_row = GuiToolkit.get_selected_tree_row_index(self.tree)
         except Exception: # pylint: disable=W0703
