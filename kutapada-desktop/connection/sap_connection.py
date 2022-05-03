@@ -3,12 +3,11 @@ import os
 from os import path
 import time
 from threading import Thread
-from connection.abstract_connection_type import AbstractConnectionType
+from connection import ConnectionType
 
 
-class SapConnection(AbstractConnectionType):
+class SapConnection(ConnectionType):
     """ SAP connection class """
-
     KEY_CONN = "conn"
     KEY_CLNT = "clnt"
     KEY_USER = "user"
@@ -34,7 +33,7 @@ class SapConnection(AbstractConnectionType):
         file_content += "&expert=true&pass=" + credential
 
         file_path = path.join(os.getcwd(), SapConnection.FILE_NAME)
-        with open(file_path, "w") as tmp_file:
+        with open(file_path, "w", encoding="utf-8") as tmp_file:
             tmp_file.write(file_content)
 
         open_thread = Thread(target=self._open_connection_file)
