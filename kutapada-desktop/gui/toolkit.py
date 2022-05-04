@@ -4,6 +4,7 @@ from PyQt5.Qt import QStandardItemModel, QHBoxLayout, QTreeView, QWidget
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMessageBox
 from data.database import Database
+from config.config import ConfigFactory
 
 class GuiToolkit:
     """ QT toolkit """
@@ -29,11 +30,14 @@ class GuiToolkit:
                          select_event_handler,
                          change_event_handler) -> QTreeView:
         """ Creates a new tree view """
+        conf = ConfigFactory.get_instance()
+
         output = QTreeView()
         output.setRootIsDecorated(False)
         output.setAlternatingRowColors(True)
         output.setModel(model)
         output.selectionModel().selectionChanged.connect(select_event_handler)
+        output.setStyleSheet("QTreeView { font-size: " + str(conf.font_size) + "pt; }")
         model.dataChanged.connect(change_event_handler)
         return output
 

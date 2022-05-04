@@ -7,6 +7,7 @@ from gui.account import AccountWidget
 from gui.system import SystemWidget
 from gui.toolkit import WidgetState
 from connection.sap_connection import SapConnection
+from config.config import ConfigFactory
 
 
 class Prime(QWidget):
@@ -14,6 +15,8 @@ class Prime(QWidget):
 
     def __init__(self):
         super().__init__()
+        conf = ConfigFactory.get_instance()
+
         self._widget_state = WidgetState(DatabaseFactory.get_instance(), self, QHBoxLayout())
 
         self._system_widget = SystemWidget(
@@ -26,6 +29,7 @@ class Prime(QWidget):
         self.setLayout(self._widget_state.main_layout)
         self.setWindowTitle("Kutapada")
         self._system_widget.focus_on_locate()
+        self.resize(conf.prime_width, conf.prime_height)
         self.show()
 
     def _account_selected(self):

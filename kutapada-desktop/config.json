@@ -1,3 +1,6 @@
 {
-  "data_file_path": "/Users/kerem/Dropbox/Apps/kutapada/kutapada.json"
+  "data_file_path": "/Users/kerem/Dropbox/Apps/kutapada/kutapada.json",
+  "font_size": 18,
+  "prime_width": 1000,
+  "prime_height": 800
 }
