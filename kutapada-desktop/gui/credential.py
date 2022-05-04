@@ -4,13 +4,20 @@ from PyQt5.Qt import QHBoxLayout, QVBoxLayout
 from PyQt5.QtWidgets import QMessageBox, QPlainTextEdit, QPushButton
 from data.database import Account, System
 from gui.toolkit import WidgetState
+from config.config import ConfigFactory
 
 
 class CredentialWidget: # pylint: disable=R0902
     """ Main class """
     def __init__(self, state: WidgetState):
+        conf = ConfigFactory.get_instance()
+
         self._state = state
+
         self._credential = QPlainTextEdit(self._state.main_widget)
+        cred_style = "QPlainTextEdit { font-size: " + str(conf.font_size) + "pt; }"
+        self._credential.setStyleSheet(cred_style)
+
         self._selected_account = Account()
         self._selected_system = System()
         self._internal_value = ""
